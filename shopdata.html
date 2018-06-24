@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>商品详情</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	    
+	    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	    <link rel="stylesheet" href="css/swiper-3.3.1.min.css">
+	    <link rel="stylesheet" href="css/animate.min.css">
+	    <script src="js/jquery.1.11.3.min.js"></script>
+	    <script src="js/jquery-2.2.2.js"></script>
+	    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	    <script src="js/swiper-3.3.1.jquery.min.js"></script>
+	    <script src="js/swiper.animate1.0.2.min.js"></script>
+	    <script>
+	        $(document).ready(function () {
+	            var mySwiper = new Swiper ('.swiper-container', {
+			    direction: 'horizontal',
+			    loop: true,
+			    pagination: '.swiper-pagination',
+			    autoplay:2000,
+			  });                           
+	        });
+	        
+    	</script>
+	    <style>
+	    	*{
+	    		margin: 0 auto;
+	    		padding: 0 auto;
+	    	}
+	    	.ui-header{
+				border:0;
+			}
+			.ui-footer{
+				border:0;
+			}
+	    	.ui-bar-f{
+				background-color: #FF8C00;
+				color: #fff;
+			}
+	    	.ui-content{
+	    		padding: 0;
+	    	}
+	    	ul li{
+	    		list-style: none;
+	    		margin:0; 
+	    		padding:0;
+	    	}
+	    	#shop{
+	    		background-color: white;
+	    		padding-bottom: 15px;
+	    		
+	    	}
+	    	#shopdata{
+	    		margin:0; 
+	    		padding:0;
+	    		
+	    	}
+	    	#pricedata{
+	    		color: #FF8C00;
+	    		margin-left: 5px;
+	    		margin-top: 10px;
+	    	}
+	    	ul h3{
+	    		margin-left: 10px;
+	    		padding-right: 10px;
+	    	}
+	    	ul p{
+	    		margin-left: 10px;
+	    		padding-right: 10px;
+	    	}
+	    	#shopxq{
+				margin-top: 10px;
+	    		margin-left: 10px;
+	    		padding-right: 10px;
+	    	}
+	    	#com{
+	    		height: 35px;
+	    		width: 100%;
+	    		background-color: white;
+	    		margin-top: 10px;
+	    		padding-top:15px ;
+	    	}
+	    	#com p{
+	    		margin-left: 10px;
+	    		float: left;
+	    	}
+	    	a{
+	    		direction: none;
+	    	}
+	    	a:link{
+	    		color: black;
+	    	}
+	    	#btn{
+	    		margin: 15px;
+	    	}
+	    	#pg3back{
+				background: transparent;
+				border: none;
+				color: white;
+			}
+			#chn{
+				margin-left: 10px;
+				width: 150px;
+				height: 60px;
+				float: left;
+			}
+			#jia{
+				float: left;
+				/*width: 20px;
+				height: 20px;*/
+			}
+			#num{
+				float: left;
+				border-style: none;
+				margin: 0;
+				width: 30px;
+			}
+			#jian{
+				float: left;
+				margin-top: 0;
+				/*width: 20px;
+				height: 20px;*/
+			}
+			.ui-input-text{
+				border-style: none;
+			}
+			.swiper-slide img{
+				width: 100%;
+	    		height: 400px;
+	    		margin: 0;
+			}
+	    </style>
+	</head>
+	<body>
+		<div data-role="page" id="page">
+			<div data-role="header" data-position="fixed" data-theme="f">
+				<a data-role="button" id="pg3back" href="index.html" rel="external">back</a>
+				<h1 style="text-shadow: none;">-- 商品详情 --</h1>
+			</div>	
+			<div data-role="content">
+				<div id="shop">
+					<div class="swiper-container">
+				      	<div class="swiper-wrapper">
+				            <div class="swiper-slide"><img /></div>    
+				            <div class="swiper-slide"><img /></div>
+				            <div class="swiper-slide"><img /></div>
+				      	</div>
+				      	<div class="swiper-pagination"></div>	 
+					</div>
+					<ul id="shopdata">						
+					</ul>
+					<p id="shopxq"></p>
+				</div>
+				<!--以下非ajax请求内容-->
+				<div id="com">
+					<p style="color: #FF8C00;">积分：</p>
+					<font>购买可得30积分</font>
+					<font style="float: right; margin-right: 15px;">...</font>
+				</div>
+				<div id="com">
+					<p>请选择尺码/颜色分类</p>
+					<font style="float: right; margin-right: 15px;">...</font>
+				</div>
+				<div id="com">
+					<p>正品保证 · 极速退款 · 七天退换</p>
+					<font style="float: right; margin-right: 15px;">...</font>
+				</div>
+				<div id="com" style="margin-bottom: 15px; font-family: '幼圆';">
+					<a href="#"><p style="color: #FF8C00;">商品详情及评价</p></a>
+					<font style="float: right; margin-right: 15px;">...</font>
+				</div>	
+				<div id="chn">
+					<a href="#" data-role="button" data-inline="true" onclick="jia()" id="jia">+</a>
+					<input type="text" value="0" id="num"/>
+					<a href="#" data-role="button" data-inline="true" onclick="jian()" id="jian">-</a>
+				</div>
+			</div>
+			
+			<!--加入购物车-->
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">					
+					<ul>
+						<li>
+							<ul>
+								<li><a href="#" data-icon="star">收藏</a></li>
+								<li><a href="#" data-icon="home">进店</a></li>
+							</ul>
+						</li>
+						<li><a href="#" data-role="button" data-icon="forward" id="shopping">加入购物车</a></li>
+						<li><a href="#" data-role="button" data-icon="check">立即购买</a></li>
+					</ul>				
+				</div>		
+			</div>
+		</div>
+	</body>
+	<script>
+		var shopdata = document.getElementById('shopdata');
+		var shopping = document.getElementById('shopping');
+		var goodsId = window.location.hash.slice(1);
+		var userID = localStorage.getItem("usrid");
+		var num = document.getElementById("num");
+		
+		function jia(){
+			num.value=parseInt(num.value)+1;
+		}
+		function jian(){
+			num.value=parseInt(num.value)-1;
+			if(num.value<=0){
+				num.value=0;
+			}
+		}
+			$.ajax({
+				type:'get',
+				data:{goodsID:goodsId},
+				url:'http://datainfo.duapp.com/shopdata/getGoods.php',
+				dataType:'jsonp',
+				success:function(data){
+//					console.log(data);
+					$('#shopdata').html($('#shopdata').html()
+					 +`<li><h3>`+data[0].goodsName+`</h3><h2 id="pricedata">`+`￥`+data[0].price+`</h2><p>`+`折扣：`+data[0].discount+`</p></li>`);
+						var img1 = data[0].imgsUrl.split(',',3);             
+		               	var solid=$('.swiper-slide img');		                
+			            $(solid[0]).attr('src',img1[2].split('"')[1]);
+				        $(solid[1]).attr('src',img1[0].split('"')[1]);
+				        $(solid[2]).attr('src',img1[1].split('"')[1]); 
+				        $(solid[3]).attr('src',img1[2].split('"')[1]); 
+				        $(solid[4]).attr('src',img1[0].split('"')[1]); 
+					$('#shopxq').html(data[0].detail);
+				}
+			})
+//		加入购物车	
+		shopping.onclick=function(){
+			$.ajax({
+				type:'get',
+				url: 'http://datainfo.duapp.com/shopdata/updatecar.php',				
+				data:{userID:userID,goodsID:goodsId,number:num.value},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+				}
+			});
+		}
+	</script>
+</html>

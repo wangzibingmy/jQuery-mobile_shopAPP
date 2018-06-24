@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	    
+	    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	    <link rel="stylesheet" href="css/swiper-3.3.1.min.css">
+	    <link rel="stylesheet" href="css/animate.min.css">
+	    <script src="js/jquery-2.2.2.js"></script>
+	    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	    <style>
+	    	*{
+	    		margin: 0 auto;
+	    		padding: 0 auto;
+	    	}
+	    	.ui-header{
+				border:0;
+			}
+			.ui-footer{
+				border:0;
+			}
+	    	.ui-bar-f{
+				background-color: #FF8C00;
+				color: #fff;
+			}
+	    	.ui-content{
+	    		padding: 0;
+	    	}
+	    	ul li{
+	    		list-style: none;
+	    		margin:0; 
+	    		padding:0;
+	    	}
+	    	#pg3back{
+				background: transparent;
+				border: none;
+				color: white;
+			}
+			#listS{
+				width: 100%;
+				height: 80px;
+				float: left;
+				margin-top: 10px;				
+				background-color: white;
+			}
+			#eff{
+				width: 20px;
+				height: 80px;
+				float: left;
+				margin-left: 10px;
+			}
+			#listS img{
+				width: 80px;
+				height: 80px;
+				float: left;
+				margin-left: 5px;
+			}
+			#listS p{
+				color: #FF8C00;
+				float: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			#listS h3{
+				margin-left: 10px;
+				float: left;
+			}
+			#del{
+				float: right;
+				margin-right: 10px;
+				
+				width: auto;
+				height: 30px;
+				border:0;
+				background: white;
+				color: #FF8C00;
+			}
+			#qx{
+				width: 100%;
+				height: 60px;
+				float: left;											
+			}
+			#quanx{
+				width: 20px;
+				height: 60px;
+				float: left;
+				margin-left: 10px;
+			}
+			#qxlb{
+				background-color: #e9e9e9;
+				border-style: none;
+				float: left;
+			}
+			.qxfont{
+				width: 40px;
+				height: 21px;
+				float: left;
+				margin-left: 10px;
+				margin-top: 10px;
+				font-size: 1.1em;
+			}
+			.zjfont{
+				float: left;
+				width: 55px;
+				height: 21px;
+				margin-top: 10px;
+				margin-left: 70px;
+				font-size: 1.1em;
+			}
+			#zprice{
+				width: auto;
+				height: 21px;
+				margin-top: 12px;
+				float: left;
+				color: #FF8C00;
+			}
+			.ui-checkbox{
+				margin: 0;
+			}
+			#end{
+				float: right;
+				width: 80px;
+				height: 60px;
+				margin: 0;
+				font-size: 1.1em;
+				background-color: #FF8C00;
+				color: white;
+				border-radius:0;
+				text-shadow: none;
+			}
+			
+	    </style>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header" data-position="fixed"  data-theme="f">
+				<a data-role="button" id="pg3back" href="index.html" rel="external">back</a>
+				<h1 style="text-shadow: none;">购物车</h1>
+			</div>
+			<div data-role="content" id="carlist">
+				
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<div id="qx">
+					<input type="checkbox" id="quanx" name="quanxuan" />
+					<label for="quanx" id="qxlb">
+						<font class="qxfont">全选</font>
+						<font class="zjfont">总价：</font>
+						<p id="zprice">0</p>
+						<!--<button style="text-shadow: none;background-color: none ;float: right; color: #FF8C00;">结算</button>-->
+					</label>
+					<button id="end">结算</button>
+				</div>
+			</div>
+				
+		</div>
+	</body>
+	<script>
+		if(!localStorage.getItem('usrid')){
+			location.href='login.html';
+		}
+		var userID = localStorage.getItem("usrid");
+		var carlist = document.getElementById('carlist');
+		var listS = document.getElementById('listS');
+		var del = document.getElementById('del');
+		var eff = document.getElementById('eff');
+		var quanx = document.getElementById('quanx');
+		var ckeff=document.getElementsByName('ckeff');
+		var quanxuan=document.getElementsByName('qunaxuan');
+		var qx = document.getElementById('qx');
+		var zprice=document.getElementById('zprice');
+		$.ajax({
+			type:'get',
+			url:'http://datainfo.duapp.com/shopdata/getCar.php',
+			dataType:'jsonp',
+			data:{userID:userID},
+			success:function(data){
+//				console.log(data);
+				for(var i=0;i<data.length;i++){
+					$('#carlist').html($('#carlist').html()+`<div id="listS" goodId=`+data[i].goodsID+`>
+						<input type="checkbox" id="eff" name="ckeff">
+						<label for="eff">
+							<img src=`+data[i].goodsListImg+`>
+							<h3>`+data[i].goodsName.slice(0,9)+`...`+`</h3><br/><br/>
+							<p>`+`￥`+data[i].price+`&nbsp;&nbsp;&nbsp;`+`个数：`+data[i].number+
+						`</p></label>
+						<button id="del" goodId=`+data[i].goodsID+`>删除</button></div>`)		
+				};
+//				删除列表
+				$('button').click(function(){				
+					var goodId = this.getAttribute('goodId');
+					console.log(goodId);
+					$.ajax({
+						type:'get',
+						url: 'http://datainfo.duapp.com/shopdata/updatecar.php',				
+						data:{userID:userID,goodsID:goodId,number:0},
+						success:function(data){
+							window.location.href='shopcar.html';							
+						}
+					});
+				});
+		//		全选及价格的改变
+				$("#quanx").click(function(){ 				
+				    if(quanx.checked){  
+				        for(var i = 0; i < ckeff.length; i++){ 
+				            ckeff[i].checked = true; 				            
+				        }
+				        var count = 0;
+				        for (var i=0;i<ckeff.length;i++){
+							if(ckeff[i].checked){
+								var price=data[i].price*data[i].number;
+								count += price;					
+								zprice.innerHTML=count;
+							}
+						}
+				    }else{  
+				        for(var i = 0; i < ckeff.length; i++){ 
+				            ckeff[i].checked = false; 
+				            zprice.innerHTML=0;
+				        }  
+				    }  
+		    	});
+//		    	单个勾选价格改变
+				$('input[type="checkbox"]').change(function(){					
+					var count=0;
+					zprice.innerHTML=0;
+					for (var i=0;i<ckeff.length;i++){
+						if(ckeff[i].checked){
+							var price=data[i].price*data[i].number;
+							count += price;					
+							zprice.innerHTML=count;
+						}
+					}
+				});				
+			}
+		})
+	</script>
+</html>

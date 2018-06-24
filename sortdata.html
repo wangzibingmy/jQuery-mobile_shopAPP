@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>分类商品详情</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	    
+	    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	    <link rel="stylesheet" href="css/swiper-3.3.1.min.css">
+	    <link rel="stylesheet" href="css/animate.min.css">
+	    <script src="js/jquery-2.2.2.js"></script>
+	    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	    
+	    <style>
+	    	*{
+	    		margin: 0;
+	    		padding: 0;
+	    	}
+	    	ul li{
+	    		list-style: none;
+	    	}
+	    	.ui-bar-f{
+				background-color: #FF8C00;
+				color: #fff;
+			}
+	    	#sort{
+	    		width: 100%;
+	    		list-style: none;
+	    	}
+	    	#sort li{
+				width: 50%;
+				height: 220px;
+				float: left;
+				padding-left: 0;
+				padding-right: 0;
+				background-color: white;
+			}
+			#sort li p{	
+				height: 20px;
+				width: auto;			
+				margin-top: 170px;
+			}
+			#sort img{
+				width: 100%;
+				height: 164px;
+				float: left;
+			}
+			#sort li font{
+				color: #FF8C00;
+				font-size: 20px;
+			}
+			.ui-field-contain{
+				padding: 0 0.5rem 0 0.5rem;
+			}
+			.ui-content{
+				padding: 0;
+			}
+			.NF{
+				font-size: 1.5em;
+				color: #FF8C00;
+				text-align: center;
+				margin-top: 120px;
+			}
+			#pg3back{
+				background: transparent;
+				border: none;
+				color: white;
+			}
+	    </style>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header" data-theme="f" data-position="fixed">
+				<a data-role="button" id="pg3back" href="index.html" rel="external">back</a>
+				<h1 id="cname">-- </h1>
+			</div>
+			<div data-role="content" id="con">
+				<div>
+					<ul id="sort"></ul>
+					<div id="sorry"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script>
+		var classId = window.location.hash.slice(1);
+		var sort = document.getElementById('sort');
+		var sorry = document.getElementById('sorry');
+		var cname = document.getElementById('cname');
+		$.ajax({
+				type:'get',
+				url:'http://datainfo.duapp.com/shopdata/getGoods.php',
+				data:{classID:classId},
+				dataType:'jsonp',
+				success:function(data){
+//					console.log(data);										
+					switch(data){			
+						case 0:
+							sorry.innerHTML='Sorry,Not Found...';
+							sorry.className='NF';
+							break;
+						default:
+							sorry.innerHTML='';
+							break;
+					}
+					for(var i=0;i<data.length;i++){
+						var classID=localStorage['classID'+i];
+						$(sort).html($('#sort').html()+`<li goodId=`+data[i].goodsID+`><img src=`+data[i].goodsListImg+`><p>`+data[i].goodsName.slice(0,8)+`...`+`</p><font>`+`￥`+data[i].price+`</font></li>`
+						);												
+					};					
+					$('#cname').html($('#cname').html()+data[0].className+' --');
+					
+					$('#sort>li').on('click',function(){
+						window.location.href='shopdata.html#'+this.getAttribute('goodId');
+					});
+				}
+			})
+	</script>
+</html>

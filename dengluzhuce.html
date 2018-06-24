@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>登录注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+		<script src="js/jquery-2.2.2.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script src="js/rem.js"></script>
+    	<style type="text/css">
+    		body {
+		        margin: 0;
+		        padding: 0;
+		    }
+		    #pageone{
+		    	background-image: url(img/qx1.jpg);
+		    	background-repeat: no-repeat;
+		    	background-size: 100% 100%;		    	
+		    	background-attachment: fixed;
+		    }
+		    #dlzc{
+		    	margin-top: 56%;
+		    }  
+		    #dlzc a{
+		    	background: transparent;
+				border: none;
+				color: white;
+				text-shadow: none;
+		    } 
+    	</style>
+	</head>
+	<body>
+		<div data-role="page" id="pageone">
+			<div data-role="content" id="dlzc">
+				<a href="#" data-role="button" id="zhuce" onclick="zhuce()">注册</a>
+				<a href="#" data-role="button" id="denglu" onclick="denglu()">登录</a>		
+			</div>
+		</div>
+		
+	</body>
+	<script>		
+		function zhuce(){
+			window.location.href="zhuce.html";
+		}
+		function denglu(){
+			window.location.href="login.html";
+		}
+	</script>
+</html>

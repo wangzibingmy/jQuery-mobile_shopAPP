@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">	    
+	    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    	<script src="js/jquery-2.2.2.js"></script>
+    	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+    	<script src="js/rem.js"></script>
+    	<style>
+    		#pagetwo{
+    			background-image: url(img/jianpan.jpg);
+    			background-repeat: no-repeat;
+		    	background-size: 100% 100%;		    	
+		    	background-attachment: fixed;
+		    	font-size: 0.35rem;
+    		}
+			#tou{
+    		   text-align: center;
+    		}
+    		#se{
+    			color: orangered;
+    		}
+    		#denglu{
+    			margin-top: 4.2rem;
+    		}
+    		#pg3back{
+				background: transparent;
+				border: none;
+				color: black;
+				margin-top: 7px;
+			}
+    	</style>
+    	
+	</head>
+	<body>
+		<div data-role="page" id="pagetwo" class="mypage">
+			<div data-role="header">
+				<a data-role="button" id="pg3back" href="dengluzhuce.html" rel="external">back</a>
+			</div>
+			<div data-role="content" id="denglu">
+					<!--<div id="tou">
+						<img src="images/qq1.png" class="toux" />
+					</div>-->
+					<form>
+						<input type="text" name="fname" placeholder="账号" id="fname"/>
+						<input type="text" name="tname" placeholder="密码" id="tname"/>
+						<input type="button" name="sub" value="登录" id="submit"/>
+					</form>	
+					<h3 id="se"></h3>
+			</div>
+		</div>
+	</body>
+    		
+	<script type="text/javascript">
+    	var dengl=document.getElementById('submit');
+    	
+    	$('#submit').click(function(){
+			$.ajax({
+    			//type:请求方式（get，post）
+    			type:'get',
+    			dataType:'json',
+    			//url:接口地址
+    			url:'http://datainfo.duapp.com/shopdata/userinfo.php',
+    			data:{status:'login',userID:fname.value,password:tname.value},
+    			//success:成功后的回调函数
+    			success:function(data){
+//  				console.log(data); 
+    				if(tname.value==""||fname.value==""){
+						alert('输入错误');
+					}else{
+						switch(data){
+							case 0:
+						   		se.innerHTML = "用户名不存在";
+						   		break;
+							case 2:
+						   		se.innerHTML ="用户名密码不符";
+						   		break;
+							default:	
+								var usrname = fname.value;
+								localStorage.setItem("usrid",usrname);
+                    			window.location.href='index.html';							
+						    	break;
+						}
+					}
+    				
+    			}
+    		})
+		})
+</script>
+</html>
+
